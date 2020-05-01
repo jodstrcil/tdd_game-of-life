@@ -2,7 +2,7 @@ package dev.saljuama.katas.tdd.gameoflife
 
 case class Generation(number: Int, rows: Int, columns: Int, life: Seq[Seq[Boolean]])
 
-class GenerationParser() {
+class GenerationParser {
 
   def parseGeneration(input: Seq[String]): Option[Generation] = {
     if (isInvalidInput(input))
