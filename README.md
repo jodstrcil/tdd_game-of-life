@@ -21,7 +21,7 @@ generation.
 
 The input starting position could be a text file that looks like this:
 ```
-Generation 1:
+Generation 1
 4 8
 ........
 ....*...
@@ -31,7 +31,7 @@ Generation 1:
 
 The output could look like this:
 ```
-Generation 2:
+Generation 2
 4 8
 ........
 ...**...
