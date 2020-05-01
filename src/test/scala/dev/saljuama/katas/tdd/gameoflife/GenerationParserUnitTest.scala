@@ -30,7 +30,7 @@ class GenerationParserUnitTest extends AnyWordSpec with Matchers {
       }
     }
 
-    /* TODO: input validation
+
     "parsing invalid inputs" must {
       "return None" when {
         "generation is not a number" in {
@@ -54,8 +54,9 @@ class GenerationParserUnitTest extends AnyWordSpec with Matchers {
           val input2 = Seq("Generation 1", ".")
           parser.parseGeneration(input1) must be(None)
           parser.parseGeneration(input2) must be(None)
-
         }
+
+        /* TODO: input validation
         "grid of cells do not conform number of rows" in {
           val input = Seq("Generation 1", "1 1", ".", ".")
           parser.parseGeneration(input) must be(None)
@@ -64,9 +65,9 @@ class GenerationParserUnitTest extends AnyWordSpec with Matchers {
           val input = Seq("Generation 1", "1 1", "..")
           parser.parseGeneration(input) must be(None)
         }
+        */
       }
     }
-    */
 
   }
 }

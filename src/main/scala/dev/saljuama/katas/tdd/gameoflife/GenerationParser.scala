@@ -14,8 +14,23 @@ class GenerationParser {
   }
 
   private def isInvalidInput(input: Seq[String]): Boolean = {
-    //TODO: input validation
-    false
+
+    def isGenerationLineInvalid = {
+      val generationLine = input.head
+      !generationLine.contains("Generation ") ||
+        generationLine.split(" ").last.toIntOption.isEmpty
+    }
+    def isDimensionsLineInvalid = {
+      val dimensionsLine = input(1)
+      val dimensions = dimensionsLine.split(" ").take(2)
+      dimensions.length != 2 ||
+        dimensions.head.toIntOption.isEmpty ||
+        dimensions.last.toIntOption.isEmpty
+    }
+
+    if (isGenerationLineInvalid) true
+    else if (isDimensionsLineInvalid) true
+    else false
   }
 
   private def extractGenerationNumber(generation: String) = {
