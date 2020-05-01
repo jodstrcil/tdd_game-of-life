@@ -19,7 +19,9 @@ class NextGenerationCalculator {
       .map { n => currentGeneration.life(n._1)(n._2) }
       .count(_ == true)
 
-    if (aliveNeighbours == 2 || aliveNeighbours == 3) currentGeneration.life(row)(col)
+    val currentState = currentGeneration.life(row)(col)
+    if (!currentState && aliveNeighbours == 3) true
+    else if (aliveNeighbours == 2 || aliveNeighbours == 3) currentState
     else false
   }
 }

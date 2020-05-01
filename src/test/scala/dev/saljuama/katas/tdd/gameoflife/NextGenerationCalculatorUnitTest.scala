@@ -18,76 +18,65 @@ class NextGenerationCalculatorUnitTest extends AnyWordSpec with Matchers {
       }
 
       "find cells that will die because of underpopulation" when {
-
         "cells do not have any alive neighbours" in {
           val current = generation(1, Seq(
-            "*.",
-            ".."
-          ))
-          val expectedNext = generation(2, Seq(
             "..",
-            ".."
+            ".*"
           ))
-          calculator.nextGeneration(current) must equal(expectedNext)
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(false)
         }
-
         "cells only have one alive neighbour" in {
           val current = generation(1, Seq(
             "...",
             ".**",
             "..."
           ))
-          val expectedNext = generation(2, Seq(
-            "...",
-            "...",
-            "..."
-          ))
-          calculator.nextGeneration(current) must equal(expectedNext)
-        }
-
-      }
-
-      "find cells that will stay alive" when {
-
-        "cells have two alive neighbours" in {
-          val current = generation(1, Seq(
-            ".*",
-            "**"
-          ))
-          val expectedNext = generation(2, Seq(
-            ".*",
-            "**"
-          ))
-          calculator.nextGeneration(current) must equal(expectedNext)
-        }
-
-        "cells have three alive neighbours" in {
-          val current = generation(1, Seq(
-            "**",
-            "**"
-          ))
-          val expectedNext = generation(2, Seq(
-            "**",
-            "**"
-          ))
-          calculator.nextGeneration(current) must equal(expectedNext)
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(false)
         }
       }
 
       "find cells that will die because of overcrowding" when {
-
         "cells have more than three alive neighbours" in {
           val current = generation(1, Seq(
             ".*.",
             "***",
             ".*."
           ))
-          val expectedNext = generation(2, Seq(
-            ".*.",
-            "*.*",
-            ".*."
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(false)
+        }
+      }
+
+      "find cells that will stay alive" when {
+        "cells have two alive neighbours" in {
+          val current = generation(1, Seq(
+            ".*",
+            "**"
           ))
-          calculator.nextGeneration(current) must equal(expectedNext)
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(true)
+        }
+        "cells have three alive neighbours" in {
+          val current = generation(1, Seq(
+            "**",
+            "**"
+          ))
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(true)
+
+        }
+      }
+
+      "find cells that will become alive" when {
+        "dead cells with three neighbours" in {
+          val current = generation(1, Seq(
+            "**",
+            "*."
+          ))
+          val nextGeneration = calculator.nextGeneration(current)
+          nextGeneration.life(1)(1) must be(true)
         }
       }
 
