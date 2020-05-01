@@ -14,7 +14,6 @@ class GenerationParser {
   }
 
   private def isInvalidInput(input: Seq[String]): Boolean = {
-
     def isGenerationLineInvalid = {
       val generationLine = input.head
       !generationLine.contains("Generation ") ||
@@ -27,10 +26,14 @@ class GenerationParser {
         dimensions.head.toIntOption.isEmpty ||
         dimensions.last.toIntOption.isEmpty
     }
+    def isGridOfCellsInvalid = {
+      val (rows,cols) = extractDimensions(input(1))
+      if (input.drop(2).length != rows) true
+      else if (!input.drop(2).forall( row => row.length == cols)) true
+      else false
+    }
 
-    if (isGenerationLineInvalid) true
-    else if (isDimensionsLineInvalid) true
-    else false
+    isGenerationLineInvalid || isDimensionsLineInvalid || isGridOfCellsInvalid
   }
 
   private def extractGenerationNumber(generation: String) = {
